@@ -459,7 +459,93 @@ module Jekyll
       url
     end
   end
-  
+
+  ##############################################################################
+  # class RenderLanguageTOnly
+  #
+  # Displays block only for the mentioned locales
+  # User must use the "t_only" liquid block tags followed by the locales seperated using |.
+  ##############################################################################
+  class RenderLanguageTOnly < Liquid::Block   
+    
+    #======================================
+    # initialize
+    #======================================
+    def initialize(tag_name, input, tokens)
+      super
+      @input = input
+    end
+    
+    
+    
+    #======================================
+    # render
+    #======================================
+    def render(context)
+      site = context.registers[:site]
+      lang = site.config['lang']
+
+      # Split the input variable
+      input_split = @input.strip.split('|')
+            
+      # Check if current locale is a parameter
+      if !(input_split.include? lang )
+        # current lang not included
+        @blank = true
+        return ''
+      end
+
+      super
+    end
+    
+    def unknown_tag(_tag, _markup, _tokens)
+    end
+    
+  end
+
+
+
+  ##############################################################################
+  # class RenderLanguageTExcept
+  #
+  # Displays block except for the mentioned locales
+  # User must use the "t_except" liquid block tags followed by the locales seperated using |.
+  ##############################################################################  
+  class RenderLanguageTExcept < Liquid::Block
+    
+    #======================================
+    # initialize
+    #======================================
+    def initialize(tag_name, input, tokens)
+      super
+      @input = input
+    end
+    
+    
+    
+    #======================================
+    # render
+    #======================================
+    def render(context)
+      site = context.registers[:site]
+      lang = site.config['lang']
+
+      # Split the input variable
+      input_split = @input.strip.split('|')
+            
+      # Check if current locale is a parameter
+      if input_split.include? lang 
+        # current lang included
+        @blank = true
+        return ''
+      end
+
+      super
+    end
+    
+    def unknown_tag(_tag, _markup, _tokens)
+    end
+  end
   
 end # End module Jekyll
 
@@ -504,4 +590,6 @@ Liquid::Template.register_tag('tf',             Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('tl',             Jekyll::LocalizeLink         )
 Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink         )
+Liquid::Template.register_tag('t_only',         Jekyll::RenderLanguageTOnly  )
+Liquid::Template.register_tag('t_except',       Jekyll::RenderLanguageTExcept)
 
