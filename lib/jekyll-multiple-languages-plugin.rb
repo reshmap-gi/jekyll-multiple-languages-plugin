@@ -584,12 +584,14 @@ end
 ################################################################################
 # Liquid tags definitions
 
-Liquid::Template.register_tag('t',              Jekyll::LocalizeTag          )
-Liquid::Template.register_tag('translate',      Jekyll::LocalizeTag          )
-Liquid::Template.register_tag('tf',             Jekyll::Tags::LocalizeInclude)
-Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)
-Liquid::Template.register_tag('tl',             Jekyll::LocalizeLink         )
-Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink         )
-Liquid::Template.register_tag('t_only',         Jekyll::RenderLanguageTOnly  )
-Liquid::Template.register_tag('t_except',       Jekyll::RenderLanguageTExcept)
+Liquid::Template.register_tag('t',                Jekyll::LocalizeTag          )
+Liquid::Template.register_tag('translate',        Jekyll::LocalizeTag          )
+Liquid::Template.register_tag('tf',               Jekyll::Tags::LocalizeInclude)
+Liquid::Template.register_tag('translate_file',   Jekyll::Tags::LocalizeInclude)
+Liquid::Template.register_tag('tl',               Jekyll::LocalizeLink         )
+Liquid::Template.register_tag('translate_link',   Jekyll::LocalizeLink         )
+Liquid::Template.register_tag('t_only',           Jekyll::RenderLanguageTOnly  )
+Liquid::Template.register_tag('translate_only',   Jekyll::RenderLanguageTOnly  )
+Liquid::Template.register_tag('t_except',         Jekyll::RenderLanguageTExcept)
+Liquid::Template.register_tag('translate_except', Jekyll::RenderLanguageTExcept)
 
